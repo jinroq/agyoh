@@ -62,8 +62,23 @@ class Agyoh
       log_error(error_message + "#{e.message}")
     end
 
-    while true
-      @tcp_socket.write('{ "key" : "value" }')
+    # TCPSocket 用の Thread を作成
+    threads << Thread.new do |thread|
+      while true
+        @tcp_socket.write('{ "key" : "value" }')
+      end
+    end
+
+    # umgyoh の API を叩くための Thread を作成
+    threads << Thread.fork do |thread|
+      message = "Access umgyoh!"
+      puts(message)
+      log_info(message)
+    end
+
+    # Thread を使用
+    threads.each do |thread|
+      thread.join
     end
   end
 
