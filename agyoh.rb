@@ -2,13 +2,17 @@
 class Agyoh
   require 'net/http'
   require "socket"
+  require "json"
+  require "sqlite3"
 
   # agyoh pid ファイル
   AGYOH_PID_FILE = "./tmp/agyoh.pid".freeze
   # agyoh log ファイル
   AGYOH_LOG_FILE = "./tmp/agyoh.log".freeze
-  # agyoh デフォルトポート番号
-  AGYOH_DEFAULT_PORT = 2018
+  # 3rd party 向けポート番号
+  PORTNUMBER_FOR_3RD_PARTY = 2018
+  # Client 向けポート番号
+  PORTNUMBER_FOR_CLIENT = 2019
 
   # 初期化処理
   def initialize
@@ -54,6 +58,10 @@ class Agyoh
 
   # 処理実行
   def execute
+    # DB 作成
+    # テーブル作成
+    # 初期データ投入
+
     begin
       @tcp_socket = TCPSocket.open("127.0.0.1", 2019)
     rescue => e
